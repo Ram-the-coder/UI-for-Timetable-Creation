@@ -1,33 +1,70 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.work-area {
+  background-color: #f5f6fa;
+  border: 1px solid #C4C2C0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 5px !important;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.row {
+  margin: 0px;
+  padding: 0px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.row div{
+  margin: 0px;
+  padding: 0px; 
 }
+
+ .detailsTable {
+  padding: 20px !important;
+ }
+
+ .tt-controls {
+  padding: 2px !important;
+ }
+
+.period {
+  height: 50px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2f3640;
+  font-weight: bold;
+  border: 1px solid black;
+}
+
+.allotted {
+  background-color: #c23616;
+}
+
+.multihour {
+  background-color: #4cd137;
+}
+
+.isolatedhour {
+  background-color: #fbc531;
+}
+
+.period:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.selected {
+  box-shadow: inset 0 0 0 2px black, 0 0 1px rgba(0, 0, 0, 0);
+  opacity: 0.8;
+}
+
+
+/*
+Orange: #e1b12c 
+
+*/
