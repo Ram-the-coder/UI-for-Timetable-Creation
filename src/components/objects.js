@@ -1,7 +1,13 @@
+const consecutive = "consecutive";
+const isolated = "isolated";
+const allotted = "allotted";
+
 class TimeTableObject {
 	constructor() {
-		this.schedule = Array(5).fill(Array(8));
-		this.schedule[0] = ["mpmc", "coca", "", "java", "", "", "", ""];
+		this.schedule = Array(5).fill(Array(8).fill({
+			status: consecutive,
+			text: '',
+		}));
 	}
 }
 

@@ -12,32 +12,46 @@ class App extends Component {
 			w1: false,
 			w2: false,
 			w3: false,
-			w4: false
+			w4: false,
+			keyCode: "",
 		}
+	}
+
+	componentDidMount() {
+		document.addEventListener("keydown", this.checkKeyCodes);
 	}
 
 	toggleW = (e) => {
 		const workArea = e.target.dataset.w;
+		this.state[workArea] ? this.closeWorkArea(workArea) : this.setState({[workArea]: true});
+	}
 
-		this.setState({
-			[workArea]: !this.state[workArea] 
-		})
+	checkKeyCodes = e => {
+		if(e.keyCode === 49 && e.ctrlKey) {
+			this.state["w1"] ? this.closeWorkArea("w1") : this.setState({["w1"]: true});
+		}
+	}
 
+	closeWorkArea = (workArea) => {
+		if(window.confirm("Are you sure that you want to CLOSE Timetable " + workArea[1] + "?"))
+			this.setState({
+				[workArea]: false
+			})
 	}
 
 	render() {
     	return (
-      		<div className="App">
-	        	<h1>Time Table Management</h1>
+      		<div className="App" >
+	        	<h1>Demo UI for Timetable creation</h1>
 	        	<div className="workspace row">
 	        		<div className="work-area col-lg-6 row">
 	        			<div className = "col-sm-11">
-	        				{this.state.w1 && <TimeTable />}
+	        				{this.state.w1 && <TimeTable id="1" />}
 	        			</div>
 	        			<div className = "col-sm-1">
 	        				{
-	        					this.state.w1 	?	<button className="btn btn-sm btn-danger" data-w="w1" onClick={this.toggleW} >-</button>
-	        									: 	<button className="btn btn-sm btn-success" data-w="w1" onClick={this.toggleW}>+</button>
+	        					this.state.w1 	?	<button className="btn btn-sm btn-danger open-close" data-w="w1" onClick={this.toggleW} title="Close this Timetable" >x</button>
+	        									: 	<button className="btn btn-sm btn-success open-close" data-w="w1" onClick={this.toggleW} title="Open a timetable in this area">+</button>
 	        				}
 	        			</div>
 	        		</div>

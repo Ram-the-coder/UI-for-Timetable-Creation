@@ -22,7 +22,7 @@ class TimeTable extends Component {
 		let days = [];
 		days.push(
 			<div className="row">
-				<div className="col theader" style={{minWidth:40}}>    </div>
+				<div className="col-sm-1 theader" style={{minWidth:40}}>    </div>
 				<div className="col theader" key="1">1</div>
 				<div className="col theader" key="2">2</div>
 				<div className="col theader" key="3">3</div>

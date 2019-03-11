@@ -7,7 +7,7 @@ const Day = (props) => {
 	const dayName = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
 	periods.push(
-		<div className="theader col" style={{minWidth: 40}} >{dayName[props.day]}</div>
+		<div className="theader col-sm-1" style={{minWidth: 40}} >{dayName[props.day]}</div>
 		)
 	for( let i = 0; i < 8; i++)
 	{
