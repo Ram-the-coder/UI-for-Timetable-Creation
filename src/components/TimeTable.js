@@ -41,7 +41,6 @@ class TimeTable extends Component {
 	}
 
 	renderForm = () => {
-		console.log(this.props);
 		return ( 
 			<div className="row" key="1" >
 				<div className="col tt-controls">

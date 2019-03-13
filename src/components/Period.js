@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Period.css';
+import { allotPeriod } from './redux/reducers';
+
 
 class Period extends Component {
 
 	constructor(props) {
 		super(props);
-		let [allottedPeriod, bgColor] = Period.extractInformation(props);
+		let [allottedPeriod, bgColor, suggestions] = Period.extractInformation(props);
 		this.state = {
 			tt: props.tt,
 			allottedPeriod: allottedPeriod,
 			bgColor: bgColor,
+			suggestions: suggestions
 		}
 
 	}
@@ -18,7 +21,7 @@ class Period extends Component {
 	// Updates the state according to the changes either in the Redux store or the timetable to be displayed
 	// which can be changed in the form in TimeTable.js whose values are passes as props
 	static getDerivedStateFromProps(nextProps, prevState) {
-		if(nextProps.tt !== prevState.tt) {
+		if(JSON.parse(JSON.stringify(nextProps.tt)) !== JSON.parse(JSON.stringify(prevState.tt))) {
 			let [allottedPeriod, bgColor] = Period.extractInformation(nextProps);
 			return {
 				tt: nextProps.tt,
@@ -31,45 +34,54 @@ class Period extends Component {
 	}
 
 	// updates the suggestions to be displayed in the suggestions box 
-	updateSuggestions = e => {
+	// updateSuggestions = e => {
 
-		const doesSuggestionsExist = document.getElementById("suggestionsBox");
-		if(!doesSuggestionsExist) {
-			const offsetLeft = e.target.offsetLeft;
-			const offsetTop = e.target.offsetTop;
-			const offsetHeight = e.target.offsetHeight;
-			const suggestionsBox = document.createElement("div");
-			const styles = {
-				position: "absolute",
-				left: offsetLeft + "px",
-				top: offsetTop + offsetHeight + "px",
-				height: "100px",
-				width: "100px",
-				backgroundColor: "white",
-				border: "1px solid black",
-				boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-				zIndex: 51,
+	// 	const doesSuggestionsExist = document.getElementById("suggestionsBox");
+	// 	if(!doesSuggestionsExist) {
+	// 		const offsetLeft = e.target.offsetLeft;
+	// 		const offsetTop = e.target.offsetTop;
+	// 		const offsetHeight = e.target.offsetHeight;
+	// 		const suggestionsBox = document.createElement("div");
+	// 		const styles = {
+	// 			position: "absolute",
+	// 			left: offsetLeft + "px",
+	// 			top: offsetTop + offsetHeight + "px",
+	// 			height: "100px",
+	// 			width: "100px",
+	// 			backgroundColor: "white",
+	// 			border: "1px solid black",
+	// 			boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+	// 			zIndex: 51,
 
-			};
-			suggestionsBox.setAttribute("id", "suggestionsBox");
-			Object.assign(suggestionsBox.style, styles);
-			e.target.parentNode.parentNode.appendChild(suggestionsBox);	
-		}
+	// 		};
+	// 		suggestionsBox.setAttribute("id", "suggestionsBox");
+	// 		Object.assign(suggestionsBox.style, styles);
+	// 		e.target.parentNode.parentNode.appendChild(suggestionsBox);	
+	// 	}
 
-		const suggestionsBox = document.getElementById("suggestionsBox");
+	// 	const suggestionsBox = document.getElementById("suggestionsBox");
+	// 	console.dir(suggestionsBox);
+	// 	// const suggestionsList;
+	// 	this.state.suggestions.forEach( suggestion => {
+	// 		const suggestionListItem = document.createElement('div');
+	// 		suggestionListItem.classList.add("suggestionListItem");
+	// 		suggestionListItem.innerText = suggestion;
+	// 		suggestionsBox.appendChild(suggestionListItem);
+	// 	})
+		// console.log(suggestionsList);
 
 
-	}
+	// }
 
-	handleInput = e => {
-		this.updateSuggestions(e);
-	}
+	// handleInput = e => {
+	// 	this.updateSuggestions(e);
+	// }
 
-	handleBlur = () => {
-		const suggestionsBox = document.getElementById("suggestionsBox");
-		if(suggestionsBox)
-			suggestionsBox.parentNode.removeChild(suggestionsBox);
-	}
+	// handleBlur = () => {
+	// 	const suggestionsBox = document.getElementById("suggestionsBox");
+	// 	if(suggestionsBox)
+	// 		suggestionsBox.parentNode.removeChild(suggestionsBox);
+	// }
 
 
 	// Sets the state of allotedPeriod and bgColor
@@ -85,12 +97,25 @@ class Period extends Component {
 		const sem = props.tt.sem;
 		const type = props.tt.type;
 		const sec = props.tt.sec.toLowerCase();
+		let suggestions;
 		switch(type) {
 			case "Class Timetable": {
+				// console.log(props);
+				let labPeriods = [];
+				Object.keys(props.labs).forEach(key => {
+					labPeriods.push(props.labs[key].periodName);
+				});
+				const suggestionsList = props.subjects.concat(labPeriods);
+				// console.log(suggestionsList);
+					suggestions = suggestionsList.map( suggestion => {
+						return (
+							<option className="list-item" value={suggestion}>{suggestion}</option>
+							)
+					});
 				const classid = dept + sem + sec;
 				if(props.classes[classid]) {
 					const period = props.classes[classid].timeTable.schedule[props.day][props.period];
-					allottedPeriod = period.text
+					allottedPeriod = period.text;
 					if((allottedPeriod === undefined) || (allottedPeriod !== '')) {
 						bgColor = red;
 					}
@@ -105,34 +130,46 @@ class Period extends Component {
 				}
 			}
 		}
-		return [allottedPeriod, bgColor];
+		return [allottedPeriod, bgColor, suggestions];
 	}
 
-	checkForEscape = (e) => {
-		if(e.keyCode !== 27)
-			return;
-		document.activeElement.blur();
+	checkForDelete = (e) => {
+		if(e.ctrlKey) {
+			e.target.blur();
+			this.setState({allottedPeriod: ""});
+			this.props.allotPeriod("", this.props.tt, this.props.day, this.props.period);
+		}
 	}
 
-
+	updatePeriod = e => {
+		this.setState({
+			allottedPeriod: e.target.value
+		});
+		this.props.allotPeriod(e.target.value, this.props.tt, this.props.day, this.props.period);
+	}
 
 	render() {
-		console.log(this.state.tt.dept);
-		return <input 	
-					type="text"
-					className="period col" 
-					style = {{backgroundColor: this.state.bgColor}}
-					contentEditable = "true"
-					onInput = { (e) => this.handleInput(e)}
-					onBlur = { () => this.handleBlur()}
-					value = {this.state.allottedPeriod}
-					onKeyDown = { (e) => this.checkForEscape(e) }
-					title = "Click and type a subject name"
-				>
-			</input>
+		return <select	className="period col"
+						style = {{backgroundColor: this.state.bgColor}}
+						value = {this.state.allottedPeriod}
+						onChange = {e => this.updatePeriod(e)}
+						onClick = {e => this.checkForDelete(e)}
+						>
+						<option value=""></option>
+						{this.state.suggestions}
+				</select>
+
 	}
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => {
+		return state;
+};
 
-export default connect(mapStateToProps)(Period);
+const mapDispatchToProps = dispatch => {
+	return {
+		allotPeriod: (value, tt, day, period) => dispatch(allotPeriod(value, tt, day, period))
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Period);
