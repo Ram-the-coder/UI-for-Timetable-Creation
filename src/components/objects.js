@@ -29,7 +29,7 @@ export class SectionObject {
 }
 
 export class LabObject	 {
-	constructor(dept, labName, periodName) {
+	constructor(dept, periodName, labName) {
 		this.dept = dept;
 		this.labName = labName;
 		this.periodName = periodName;

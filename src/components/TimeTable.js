@@ -47,6 +47,7 @@ class TimeTable extends Component {
 					<select	className="form-control form-control-sm" 
 							value={this.state.type} 
 							onChange = { e => this.setState({ type: e.target.value })}
+							title = "Type of timetable"
 							>
 						<option>Class Timetable</option>
 						<option>Lab Timetable</option>
@@ -61,6 +62,7 @@ class TimeTable extends Component {
 								<select	className="form-control form-control-sm"
 										value = { "Semester " + this.state.sem}
 										onChange = { e => this.setState({ sem: e.target.value[e.target.value.length - 1]})}
+										title = "Semester"
 										>
 									{this.props.semList}
 								</select>
@@ -73,6 +75,7 @@ class TimeTable extends Component {
 								<select	className="form-control form-control-sm"
 										value = {this.state.dept.toUpperCase()}
 										onChange = { e => this.setState({ dept: e.target.value.toLowerCase()})}
+										title = "Department"
 										>
 									{this.props.deptsList}
 								</select>
@@ -85,6 +88,7 @@ class TimeTable extends Component {
 								<select	className="form-control form-control-sm"
 										value = {this.state.sec}
 										onChange = { e => this.setState({ sec: e.target.value})}
+										title="Section"
 										>
 									{this.props.sectionsList}
 								</select>
@@ -95,7 +99,7 @@ class TimeTable extends Component {
 				{
 					this.state.type === "Lab Timetable" && (
 							<div className="col tt-controls">
-								<select class="form-control form-control-sm">
+								<select className="form-control form-control-sm" title="Lab" >
 									{this.props.labsList}
 								</select>
 							</div>						
@@ -107,6 +111,7 @@ class TimeTable extends Component {
 								<select	className="form-control form-control-sm"
 										value = {this.state.lab}
 										onChange = { e => this.setState({ lab: e.target.value})}
+										title = "Faculty name"
 										>
 									{this.props.facultyList}
 								</select>

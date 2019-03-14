@@ -9,11 +9,10 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			w1: false,
+			w1: true,
 			w2: false,
 			w3: false,
 			w4: false,
-			keyCode: "",
 		}
 	}
 
@@ -27,8 +26,8 @@ class App extends Component {
 	}
 
 	checkKeyCodes = e => {
-		if(e.keyCode === 49 && e.altKey) {
-
+		if(e.keyCode === 49 && e.ctrlKey) {
+			e.preventDefault();
 			this.state["w1"] ? this.closeWorkArea("w1") : this.setState({["w1"]: true});
 		}
 	}
@@ -47,12 +46,16 @@ class App extends Component {
 	        	<div className="workspace row">
 	        		<div className="work-area col-lg-6 row">
 	        			<div className = "col-sm-11">
-	        				{this.state.w1 && <TimeTable id="1" />}
+	        				{
+	        					this.state.w1 
+	        								? <TimeTable id="1" /> 
+	        								: <div className="permaTooltip">Press the + button to open a new timetable here (Ctrl+1)</div>
+	        				}
 	        			</div>
 	        			<div className = "col-sm-1">
 	        				{
-	        					this.state.w1 	?	<button className="btn btn-sm btn-danger open-close" data-w="w1" onClick={this.toggleW} title="Close this Timetable" >x</button>
-	        									: 	<button className="btn btn-sm btn-success open-close" data-w="w1" onClick={this.toggleW} title="Open a timetable in this area">+</button>
+	        					this.state.w1 	?	<button className="btn btn-sm btn-danger open-close" data-w="w1" onClick={this.toggleW} title="Close this Timetable (Ctrl+1)" >x</button>
+	        									: 	<button className="btn btn-sm btn-success open-close" data-w="w1" onClick={this.toggleW} title="Open a timetable in this area (Ctrl+1)">+</button>
 	        				}
 	        			</div>
 	        		</div>
@@ -75,17 +78,17 @@ class App extends Component {
 	        		<div className="work-area col-lg-6 row"></div>
 		        </div>
 
-		        <div>
+		        {/*<div>
 		        	<p>
-					  	<button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsibleList" aria-expanded="false" aria-controls="collapsibleList">
-					   		Details
+					  	<button className="btn btn-secondary buttonControls btn-block" type="button" data-toggle="collapse" data-target="#collapsibleList" aria-expanded="false" aria-controls="collapsibleList">
+					   		Show Classes, Faculties and Labs Data
 					  	</button>
 					</p>
 					<div className="collapse" id="collapsibleList">
 						<List />
 					</div>
 
-		        </div>
+		        </div>*/}
       		</div>
     	);
   	}

@@ -7,6 +7,7 @@ class List extends Component {
 		return (
 				<div className="row">
 					<div id="classes" className="col detailsTable">
+						<h3>Classes</h3>
 						<table className="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -21,6 +22,7 @@ class List extends Component {
 						</table>
 					</div>
 					<div id="faculties" className="col detailsTable">
+						<h3>Faculties</h3>
 						<table className="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -32,8 +34,14 @@ class List extends Component {
 								{this.props.facultyList}
 							</tbody>
 						</table>
+						<div className="button group row">
+							<button className="btn btn-secondary buttonControls col">Add</button>
+							<button className="btn btn-secondary buttonControls col">Update</button>
+							<button className="btn btn-secondary buttonControls col">Remove</button>
+						</div>
 					</div>
 					<div id="labs" className="col detailsTable">
+						<h3>Labs</h3>
 						<table className="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -79,7 +87,7 @@ const mapStateToProps = state => {
 		labList.push(
 			<tr key={i}>
 				<td>{state.labs[i].dept}</td>
-				<td>{state.labs[i].name}</td>
+				<td>{state.labs[i].labName}</td>
 			</tr>
 			)
 	}

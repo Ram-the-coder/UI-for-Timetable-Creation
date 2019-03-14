@@ -30,7 +30,7 @@ const initialState = {
 		it1a: new SectionObject("it",1,"a"),
 		it1b: new SectionObject("it",1,"b"),
 		mech1a: new SectionObject("mech",1,"a"),
-		mech3b: new SectionObject("mech",1,"b"),
+		mech1b: new SectionObject("mech",1,"b"),
 	},
 	labs: {
 		// deptLab: [],

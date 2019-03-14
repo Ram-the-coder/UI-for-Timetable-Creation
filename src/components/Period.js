@@ -34,57 +34,6 @@ class Period extends Component {
 			return null;
 	}
 
-	// updates the suggestions to be displayed in the suggestions box 
-	// updateSuggestions = e => {
-
-	// 	const doesSuggestionsExist = document.getElementById("suggestionsBox");
-	// 	if(!doesSuggestionsExist) {
-	// 		const offsetLeft = e.target.offsetLeft;
-	// 		const offsetTop = e.target.offsetTop;
-	// 		const offsetHeight = e.target.offsetHeight;
-	// 		const suggestionsBox = document.createElement("div");
-	// 		const styles = {
-	// 			position: "absolute",
-	// 			left: offsetLeft + "px",
-	// 			top: offsetTop + offsetHeight + "px",
-	// 			height: "100px",
-	// 			width: "100px",
-	// 			backgroundColor: "white",
-	// 			border: "1px solid black",
-	// 			boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-	// 			zIndex: 51,
-
-	// 		};
-	// 		suggestionsBox.setAttribute("id", "suggestionsBox");
-	// 		Object.assign(suggestionsBox.style, styles);
-	// 		e.target.parentNode.parentNode.appendChild(suggestionsBox);	
-	// 	}
-
-	// 	const suggestionsBox = document.getElementById("suggestionsBox");
-	// 	console.dir(suggestionsBox);
-	// 	// const suggestionsList;
-	// 	this.state.suggestions.forEach( suggestion => {
-	// 		const suggestionListItem = document.createElement('div');
-	// 		suggestionListItem.classList.add("suggestionListItem");
-	// 		suggestionListItem.innerText = suggestion;
-	// 		suggestionsBox.appendChild(suggestionListItem);
-	// 	})
-		// console.log(suggestionsList);
-
-
-	// }
-
-	// handleInput = e => {
-	// 	this.updateSuggestions(e);
-	// }
-
-	// handleBlur = () => {
-	// 	const suggestionsBox = document.getElementById("suggestionsBox");
-	// 	if(suggestionsBox)
-	// 		suggestionsBox.parentNode.removeChild(suggestionsBox);
-	// }
-
-
 	// Sets the state of allotedPeriod and bgColor
 	static extractInformation(props) {
 		// console.log("extractInformation");
@@ -200,6 +149,7 @@ class Period extends Component {
 						value = {this.state.allottedPeriod}
 						onChange = {e => this.updatePeriod(e)}
 						onClick = {e => this.checkForDelete(e)}
+						title = "Click to allot a period here (Ctrl+Click to unallot)"
 						>
 						<option value=""></option>
 						{this.state.suggestions}
