@@ -14,7 +14,7 @@ class TimeTable extends Component {
 			dept: 'cse',
 			sem: 3,
 			faculty: 'John Doe',
-			lab: 'MPMC',
+			lab: 'mpmc lab',
 		}
 	}
 
@@ -147,7 +147,7 @@ const mapStateToProps = state => {
 	}
 
 	for(let i in state.labs) {
-		labsList.push(<option key={i}>{state.labs[i].name}</option>);
+		labsList.push(<option key={i}>{state.labs[i].labName}</option>);
 	}
 
 	for(let i in state.faculties) {

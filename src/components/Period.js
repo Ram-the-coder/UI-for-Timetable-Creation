@@ -22,11 +22,12 @@ class Period extends Component {
 	// which can be changed in the form in TimeTable.js whose values are passes as props
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if(JSON.parse(JSON.stringify(nextProps.tt)) !== JSON.parse(JSON.stringify(prevState.tt))) {
-			let [allottedPeriod, bgColor] = Period.extractInformation(nextProps);
+			let [allottedPeriod, bgColor, suggestions] = Period.extractInformation(nextProps);
 			return {
 				tt: nextProps.tt,
 				allottedPeriod,
-				bgColor
+				bgColor,
+				suggestions
 			}
 		}
 		else 
@@ -87,7 +88,7 @@ class Period extends Component {
 	// Sets the state of allotedPeriod and bgColor
 	static extractInformation(props) {
 		// console.log("extractInformation");
-		let allottedPeriod, bgColor;
+		let allottedPeriod, bgColor, suggestions;
 		const green = "#4cd137";
 		const red = "#c23616";
 		const orange = "#fbc531";
@@ -97,7 +98,6 @@ class Period extends Component {
 		const sem = props.tt.sem;
 		const type = props.tt.type;
 		const sec = props.tt.sec.toLowerCase();
-		let suggestions;
 		switch(type) {
 			case "Class Timetable": {
 				// console.log(props);
@@ -128,6 +128,52 @@ class Period extends Component {
 					allottedPeriod = "";
 					bgColor = red;
 				}
+				break;
+			}
+			case "Lab Timetable": {
+				let classes = Object.keys(props.classes);
+				suggestions = classes.map( suggestion => {
+						return (
+							<option className="list-item" value={suggestion}>{suggestion}</option>
+							)
+					});
+				let labid = "csempmc";
+				const labKeys = Object.keys(props.labs);
+				for( let i = 0; i < labKeys.length; i++) {
+					if(props.labs[labKeys[i]].labName === props.tt.lab) {
+						labid = labKeys[i];
+						break;
+					}
+				}
+				allottedPeriod = props.labs[labid].timeTable.schedule[props.day][props.period].text;
+				if(allottedPeriod !== "")
+					bgColor = red;
+				else
+					bgColor = green;
+				break;
+
+			}
+			case "Faculty Timetable": {
+				let classes = Object.keys(props.classes);
+				suggestions = classes.map( suggestion => {
+						return (
+							<option className="list-item" value={suggestion}>{suggestion}</option>
+							)
+					});
+				let facultyid;
+				const facultyKeys = Object.keys(props.faculties);
+				for( let i = 0; i < facultyKeys.length; i++) {
+					if(props.faculties[facultyKeys[i]].name === props.tt.faculty) {
+						facultyid = facultyKeys[i];
+						break;
+					}
+				}
+				allottedPeriod = props.faculties[facultyid].timeTable.schedule[props.day][props.period].text;
+				if(allottedPeriod !== "")
+					bgColor = red;
+				else
+					bgColor = green;
+				break;
 			}
 		}
 		return [allottedPeriod, bgColor, suggestions];
