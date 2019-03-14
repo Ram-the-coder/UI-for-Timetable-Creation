@@ -43,7 +43,21 @@ class App extends Component {
 	render() {
     	return (
       		<div className="App" >
-	        	<h1>Demo UI for Timetable creation</h1>
+      			<div className="row">
+      				<h1 className="col-sm-10">Demo UI for Timetable creation</h1>	
+      				<div className="col-sm-2">
+      					<button className="btn btn-secondary buttonControls" 
+				  			type="button" 
+				  			data-toggle="collapse" 
+				  			data-target="#collapsibleList" 
+				  			aria-expanded="false" 
+				  			aria-controls="collapsibleList"
+				  			>
+				   		Click to open/close color scheme explanation
+				  		</button>
+      				</div>
+      				
+      			</div>
 	        	<div className="workspace row">
 	        		<div className="work-area col-lg-6 row">
 	        			<div className = "col-sm-11">
@@ -121,6 +135,22 @@ class App extends Component {
 					</div>
 
 		        </div>*/}
+		        <div>
+					<div className="collapse color-schema" id="collapsibleList">
+						<div className="row color-schema-row">
+							<div className="color-scheme col-sm-1" style={{backgroundColor: "#4cd137"}} />
+							<div className="col-sm-11 color-scheme-exp">2 consecutive periods exist, a lab can be allotted here</div>
+						</div>
+						<div className="row color-schema-row">
+							<div className="color-scheme col-sm-1" style={{backgroundColor: "#fbc531"}} />
+							<div className="col-sm-11 color-scheme-exp">2 consecutive periods does not exist, a lab cannot be allotted here</div>
+						</div>
+						<div className="row color-schema-row">
+							<div className="color-scheme col-sm-1" style={{backgroundColor: "#c23616"}} />
+							<div className="col-sm-11 color-scheme-exp">Period allotted</div>
+						</div>
+					</div>		        	
+		        </div>
       		</div>
     	);
   	}

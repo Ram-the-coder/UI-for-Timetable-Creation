@@ -80,3 +80,25 @@ select.period:focus {
   margin: 5px;
   background-color: #2f3640;
 }
+
+.color-schema {
+  width: 800px;
+  margin: auto;
+}
+
+.color-scheme {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  border: 2px solid black;
+}
+
+.color-scheme-exp {
+  text-align: left;
+  padding: 10px !important;
+}
+
+.color-schema-row {
+  margin: 10px;
+}
