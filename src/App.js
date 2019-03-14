@@ -27,7 +27,8 @@ class App extends Component {
 	}
 
 	checkKeyCodes = e => {
-		if(e.keyCode === 49 && e.ctrlKey) {
+		if(e.keyCode === 49 && e.altKey) {
+
 			this.state["w1"] ? this.closeWorkArea("w1") : this.setState({["w1"]: true});
 		}
 	}

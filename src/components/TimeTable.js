@@ -12,7 +12,7 @@ class TimeTable extends Component {
 			type: 'Class Timetable',
 			sec: 'A',
 			dept: 'cse',
-			sem: '3',
+			sem: 3,
 			faculty: 'John Doe',
 			lab: 'MPMC',
 		}
@@ -59,8 +59,8 @@ class TimeTable extends Component {
 					this.state.type === "Class Timetable" && (
 							<div className="col tt-controls">
 								<select	className="form-control form-control-sm"
-										value = {this.state.sem}
-										onChange = { e => this.setState({ sem: e.target.value})}
+										value = { "Semester " + this.state.sem}
+										onChange = { e => this.setState({ sem: e.target.value[e.target.value.length - 1]})}
 										>
 									{this.props.semList}
 								</select>
@@ -71,8 +71,8 @@ class TimeTable extends Component {
 					(this.state.type === "Class Timetable" || this.state.type === "Lab Timetable") && (
 							<div className="col tt-controls">
 								<select	className="form-control form-control-sm"
-										value = {this.state.dept}
-										onChange = { e => this.setState({ dept: e.target.value})}
+										value = {this.state.dept.toUpperCase()}
+										onChange = { e => this.setState({ dept: e.target.value.toLowerCase()})}
 										>
 									{this.props.deptsList}
 								</select>
@@ -143,7 +143,7 @@ const mapStateToProps = state => {
 	}
 
 	for(let i in state.depts) {
-		deptsList.push(<option key={i}>{state.depts[i]}</option>);
+		deptsList.push(<option key={i}>{state.depts[i].toUpperCase()}</option>);
 	}
 
 	for(let i in state.labs) {

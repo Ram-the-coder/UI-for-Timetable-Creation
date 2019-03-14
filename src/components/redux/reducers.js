@@ -21,8 +21,18 @@ const initialState = {
 		// deptSemSec: [],
 		cse3a: new SectionObject("cse",3,"a"),
 		cse3b: new SectionObject("cse",3,"b"),
-		cse4a: new SectionObject("cse",4,"a"),
-		cse4d: new SectionObject("cse",4,"d"),
+		it3a: new SectionObject("it",3,"a"),
+		it3b: new SectionObject("it",3,"b"),
+		mech3a: new SectionObject("mech",3,"a"),
+		mech3b: new SectionObject("mech",3,"b"),
+		cse1a: new SectionObject("cse",1,"a"),
+		cse1b: new SectionObject("cse",1,"b"),
+		it1a: new SectionObject("it",1,"a"),
+		it1b: new SectionObject("it",1,"b"),
+		mech1a: new SectionObject("mech",1,"a"),
+		mech3b: new SectionObject("mech",1,"b"),
+
+
 	},
 	labs: {
 		// deptLab: [],
@@ -34,9 +44,9 @@ const initialState = {
 		janeDoe: new FacultyObject("JaneDoe"),
 	},
 	subjects: ["mpmc", "coca", "java"],
-	semesters: [1,2,3,4],
+	semesters: ["Semester 1", "Semester 3"],
 	depts: ["cse", "it", "mech"],
-	sections: ["A", "B", "C", "D", "E"],
+	sections: ["A", "B"],
 }
 
 export const rootReducer = (state = initialState, action) => {
