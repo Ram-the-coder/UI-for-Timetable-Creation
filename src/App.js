@@ -26,9 +26,10 @@ class App extends Component {
 	}
 
 	checkKeyCodes = e => {
-		if(e.keyCode === 49 && e.ctrlKey) {
-			e.preventDefault();
-			this.state["w1"] ? this.closeWorkArea("w1") : this.setState({["w1"]: true});
+		if(e.ctrlKey && (e.keyCode > 48) && (e.keyCode < 53)) {
+				e.preventDefault();
+				let workArea = "w" + (e.keyCode - 48);
+				this.state[workArea] ? this.closeWorkArea(workArea) : this.setState({[workArea]: true});
 		}
 	}
 
@@ -60,23 +61,54 @@ class App extends Component {
 	        			</div>
 	        		</div>
 	        		<div className="work-area col-lg-6 row">
-
-	        		</div>
-	        	</div>
-		        <div className="workspace row">
-		        	<div className="work-area col-lg-6 row">
 	        			<div className = "col-sm-11">
-	        				{this.state.w3 && <TimeTable />}
+	        				{
+	        					this.state.w2 
+	        								? <TimeTable id="2" /> 
+	        								: <div className="permaTooltip">Press the + button to open a new timetable here (Ctrl+2)</div>
+	        				}
 	        			</div>
 	        			<div className = "col-sm-1">
 	        				{
-	        					this.state.w3 	?	<button className="btn btn-sm btn-danger" onClick={()=>this.setState({w3:false})} >-</button>
-	        									: 	<button className="btn btn-sm btn-success" onClick={()=>this.setState({w3:true})}>+</button>
+	        					this.state.w2 	?	<button className="btn btn-sm btn-danger open-close" data-w="w2" onClick={this.toggleW} title="Close this Timetable (Ctrl+2)" >x</button>
+	        									: 	<button className="btn btn-sm btn-success open-close" data-w="w2" onClick={this.toggleW} title="Open a timetable in this area (Ctrl+2)">+</button>
 	        				}
 	        			</div>
 	        		</div>
-	        		<div className="work-area col-lg-6 row"></div>
-		        </div>
+	        	</div>
+	        	<div className="workspace row">
+	        		<div className="work-area col-lg-6 row">
+	        			<div className = "col-sm-11">
+	        				{
+	        					this.state.w3 
+	        								? <TimeTable id="3" /> 
+	        								: <div className="permaTooltip">Press the + button to open a new timetable here (Ctrl+3)</div>
+	        				}
+	        			</div>
+	        			<div className = "col-sm-1">
+	        				{
+	        					this.state.w3 	?	<button className="btn btn-sm btn-danger open-close" data-w="w3" onClick={this.toggleW} title="Close this Timetable (Ctrl+3)" >x</button>
+	        									: 	<button className="btn btn-sm btn-success open-close" data-w="w3" onClick={this.toggleW} title="Open a timetable in this area (Ctrl+3)">+</button>
+	        				}
+	        			</div>
+	        		</div>
+	        		<div className="work-area col-lg-6 row">
+	        			<div className = "col-sm-11">
+	        				{
+	        					this.state.w4 
+	        								? <TimeTable id="4" /> 
+	        								: <div className="permaTooltip">Press the + button to open a new timetable here (Ctrl+4)</div>
+	        				}
+	        			</div>
+	        			<div className = "col-sm-1">
+	        				{
+	        					this.state.w4 	?	<button className="btn btn-sm btn-danger open-close" data-w="w4" onClick={this.toggleW} title="Close this Timetable (Ctrl+4)" >x</button>
+	        									: 	<button className="btn btn-sm btn-success open-close" data-w="w4" onClick={this.toggleW} title="Open a timetable in this area (Ctrl+4)">+</button>
+	        				}
+	        			</div>
+	        		</div>
+	        	</div>
+		        
 
 		        {/*<div>
 		        	<p>
