@@ -1,6 +1,8 @@
 Screenshot:
 ![Screenshot](./public/screenshot.PNG)
 
+This project has been hosted at: https://timetable-creation-ui.herokuapp.com
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
